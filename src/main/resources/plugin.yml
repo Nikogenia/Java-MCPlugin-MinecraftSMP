@@ -1,0 +1,13 @@
+name: MinecraftSMP
+version: '${project.version}'
+main: de.nikocraft.minecraftsmp.Main
+api-version: 1.19
+prefix: MinecraftSMP
+authors: [ Nikocraft ]
+description: A minecraft plugin with essentials features for a survival server
+commands:
+  teleport_request:
+    aliases:
+      - tpr
+    usage: /teleport_request help
+    description: Player teleport on request
