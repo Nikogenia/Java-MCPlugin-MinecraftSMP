@@ -4,7 +4,7 @@ main: de.nikocraft.minecraftsmp.Main
 api-version: 1.19
 prefix: MinecraftSMP
 authors: [ Nikocraft ]
-description: A minecraft plugin with essentials features for a survival server
+description: A minecraft plugin with essential features for a survival server
 commands:
   teleport_request:
     aliases:
