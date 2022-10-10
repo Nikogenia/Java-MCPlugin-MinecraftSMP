@@ -1,6 +1,7 @@
 package de.nikocraft.minecraftsmp.commands;
 
 import de.nikocraft.minecraftsmp.Main;
+import de.nikocraft.minecraftsmp.teleport.TeleportManager;
 import de.nikocraft.minecraftsmp.utils.CommandUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +21,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
         if (!(sender instanceof Player)) {
 
-            sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "You need to be a player to use this command!");
+            sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "You need to be a player to use this command!");
 
             return true;
 
@@ -30,7 +31,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
         if (args.length == 0) {
 
-            player.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Missing arguments!");
+            player.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Missing arguments!");
 
             return true;
 
@@ -42,7 +43,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (args.length < 2) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Missing second argument!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Missing second argument!");
 
                     return true;
 
@@ -50,7 +51,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]) == null) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Player not found!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Player not found!");
 
                     return true;
 
@@ -58,7 +59,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]).equals(player)) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "You cannot request yourself!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "You cannot request yourself!");
 
                     return true;
 
@@ -66,7 +67,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (!Main.getTeleportManager().create(player, Bukkit.getPlayer(args[1]))) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "This request already exists!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "This request already exists!");
 
                     return true;
 
@@ -88,7 +89,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]) == null) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Player not found!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Player not found!");
 
                     return true;
 
@@ -96,7 +97,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (!Main.getTeleportManager().cancel(player, Bukkit.getPlayer(args[1]))) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "There is no request to this player!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "There is no request to this player!");
 
                     return true;
 
@@ -118,7 +119,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]) == null) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Player not found!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Player not found!");
 
                     return true;
 
@@ -126,7 +127,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (!Main.getTeleportManager().accept(Bukkit.getPlayer(args[1]), player)) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "There is no request from this player!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "There is no request from this player!");
 
                     return true;
 
@@ -148,7 +149,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (Bukkit.getPlayer(args[1]) == null) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Player not found!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Player not found!");
 
                     return true;
 
@@ -156,7 +157,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
                 if (!Main.getTeleportManager().decline(Bukkit.getPlayer(args[1]), player)) {
 
-                    sender.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "There is no request from this player!");
+                    sender.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "There is no request from this player!");
 
                     return true;
 
@@ -166,7 +167,7 @@ public class TeleportCommand implements TabCompleter, CommandExecutor {
 
             default:
 
-                player.sendMessage(Main.getTeleportManager().getTeleportPrefix() + ChatColor.RED + "Invalid first argument!");
+                player.sendMessage(TeleportManager.getTeleportPrefix() + ChatColor.RED + "Invalid first argument!");
 
                 return true;
 

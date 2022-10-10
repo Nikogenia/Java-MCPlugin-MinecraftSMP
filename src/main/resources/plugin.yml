@@ -6,8 +6,30 @@ prefix: MinecraftSMP
 authors: [ Nikocraft ]
 description: A minecraft plugin with essential features for a survival server
 commands:
-  teleport_request:
+  teleportrequest:
     aliases:
       - tpr
-    usage: /teleport_request help
+    usage: /teleportrequest help
     description: Player teleport on request
+  status:
+    usage: /status <name>
+    description: Set the own status
+  displayip:
+    usage: /displayip <ip>
+    description: Set the display server IP
+    permission: op
+  spawn:
+    usage: No arguments
+    description: Teleport to spawn
+  shopping:
+    usage: No arguments
+    description: Teleport to shopping district
+  stronghold:
+    usage: No arguments
+    description: Teleport to stronghold
+  home:
+    usage: No arguments
+    description: Teleport to home
+  sethome:
+    usage: No arguments
+    description: Set home at current position

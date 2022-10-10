@@ -8,17 +8,23 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeleportManager {
 
     private final List<TeleportRequest> requests;
+
+    private final Map<Player, Integer> lastPlayerDamage;
 
     private int schedulerID;
 
     public TeleportManager() {
 
         requests = new ArrayList<>();
+
+        lastPlayerDamage = new HashMap<>();
 
         run();
 
@@ -32,6 +38,16 @@ public class TeleportManager {
             @Override
             public void run() {
 
+                for (Player player : lastPlayerDamage.keySet()) {
+
+                    if (lastPlayerDamage.get(player) > 0) {
+                        lastPlayerDamage.put(player, lastPlayerDamage.get(player) - 1);
+                    }
+
+                }
+
+                List<TeleportRequest> toRemove = new ArrayList<>();
+
                 for (TeleportRequest request : requests) {
 
                     if (request.getTimeout() <= 0) {
@@ -41,7 +57,7 @@ public class TeleportManager {
                         request.getTo().sendMessage(getTeleportPrefix() + ChatColor.DARK_PURPLE + "Teleport request from " + ChatColor.LIGHT_PURPLE + request.getFrom().getName() +
                                 ChatColor.DARK_PURPLE + " timed out.");
 
-                        requests.remove(request);
+                        toRemove.add(request);
 
                         continue;
 
@@ -50,6 +66,8 @@ public class TeleportManager {
                     request.setTimeout(request.getTimeout() - 1);
 
                 }
+
+                requests.removeAll(toRemove);
 
             }
 
@@ -71,9 +89,9 @@ public class TeleportManager {
 
         }
 
-        ClickEvent cancelEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleport_request cancel " + to.getName());
-        ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleport_request accept " + from.getName());
-        ClickEvent declineEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleport_request decline " + from.getName());
+        ClickEvent cancelEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleportrequest cancel " + to.getName());
+        ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleportrequest accept " + from.getName());
+        ClickEvent declineEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teleportrequest decline " + from.getName());
         TextComponent cancelText = new TextComponent(ChatColor.GRAY + "[" + ChatColor.YELLOW + "CANCEL" + ChatColor.GRAY + "]");
         cancelText.setClickEvent(cancelEvent);
         TextComponent acceptText = new TextComponent(ChatColor.GRAY + "[" + ChatColor.GREEN + "ACCEPT" + ChatColor.GRAY + "]");
@@ -178,11 +196,15 @@ public class TeleportManager {
 
     }
 
-    public String getTeleportPrefix() {
+    public static String getTeleportPrefix() {
 
         return ChatColor.GRAY + "[" + ChatColor.BLUE + ChatColor.BOLD + "Teleport" + ChatColor.RESET +
                 ChatColor.GRAY + "] " + ChatColor.WHITE;
 
+    }
+
+    public Map<Player, Integer> getLastPlayerDamage() {
+        return lastPlayerDamage;
     }
 
 }
